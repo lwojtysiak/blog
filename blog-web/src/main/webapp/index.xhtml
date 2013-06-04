@@ -8,7 +8,7 @@
       
     <h:body>
  
-    	<ui:composition template="../templates/common/layout.xhtml">
+    	<ui:composition template="templates/common/layout.xhtml">
  
     		<ui:define name="content">
     			<script type="text/javascript">
@@ -22,7 +22,7 @@
 				<ui:repeat value="#{homePage.posts}" var="item">
 					<div>
 				    	<h3>
-				    		<h:outputLink value="showPost.xhtml">
+				    		<h:outputLink value="pages/showPost.xhtml">
 							<h:outputText value="#{item.title}" />
 								<f:param name="postId" value="#{item.id}" />
 							</h:outputLink>
