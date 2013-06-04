@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+      
+    <h:body>
+ 
+    	<ui:composition template="../../templates/common/layout.xhtml">
+ 
+    		<ui:define name="content">
+    			<h:messages styleClass="messages-panel" infoClass="info-messages" errorClass="error-messages"/>	
+		
+				<h:form>
+		    	   <div>
+		    	   		<h:outputLabel value="#{msgs['admin.add.author.label']}:" for="author" styleClass="input" />
+		    	   		<h:inputText id="author" value="#{admin.author}" required="false" label="#{msgs['admin.add.author.label']}" style="width: 300px;"/>
+		    	   </div>
+		    	   <div>
+		    	   		<h:outputLabel value="#{msgs['admin.add.title.label']}:" for="title" styleClass="input" />
+		    	   		<h:inputText id="title" value="#{admin.title}" required="true" label="#{msgs['admin.add.title.label']}" style="width: 300px;"/>
+		    	   </div>
+		    	   <div>
+		    	   		<h:outputLabel value="#{msgs['admin.add.summary.label']}:" for="summary" styleClass="input" />
+		    	   		<h:inputTextarea id="summary" value="#{admin.summary}" required="true" label="#{msgs['admin.add.summary.label']}" rows="10" cols="50"/>
+		    	   </div>
+		    	   <div>
+		    	   		<h:outputLabel value="#{msgs['admin.add.text.label']}:" for="text" styleClass="input" />
+		    	   		<h:inputTextarea id="text" value="#{admin.text}" required="true" label="#{msgs['admin.add.text.label']}" rows="10" cols="50"/>
+		    	   </div>
+		    	   <h:commandButton value="#{msgs['application.buttons.submit']}" action="#{admin.addPost}" style="text-align: center;"></h:commandButton>
+		    	</h:form>
+    		</ui:define>
+ 
+    	</ui:composition>
+ 
+    </h:body>
+ 
+</html>

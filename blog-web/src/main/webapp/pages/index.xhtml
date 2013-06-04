@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+      
+    <h:body>
+ 
+    	<ui:composition template="../templates/common/layout.xhtml">
+ 
+    		<ui:define name="content">
+    			<script type="text/javascript">
+				//<![CDATA[
+					$(document).ready(function() {
+						convertDateToUserTimezone("insertDate");
+			        });
+				//]]>
+				</script>
+				
+				<ui:repeat value="#{homePage.posts}" var="item">
+					<div>
+				    	<h3>
+				    		<h:outputLink value="showPost.xhtml">
+							<h:outputText value="#{item.title}" />
+								<f:param name="postId" value="#{item.id}" />
+							</h:outputLink>
+						</h3>
+					</div>
+					
+					<div>
+						#{msgs['home.posted.on.label']}
+						<h:outputText value="#{item.insertDate}" id="insertDate">
+							<f:convertDateTime dateStyle="long" type="both" timeStyle="full"/>
+						</h:outputText>&nbsp;
+						<h:outputFormat value="#{msgs['home.posted.by.label']}" rendered="#{not empty item.author}">
+				    		<f:param value="#{item.author}" />
+				     	</h:outputFormat>
+					</div>
+					
+					<div>
+						<h:outputLabel value="#{item.summary}" />
+					</div>
+					
+					<div>
+						<h:outputFormat value="#{msgs['home.comments.label']}">
+			    			<f:param value="#{item.numberOfComments}" />
+			     		</h:outputFormat>
+					</div>
+				    <hr/>
+				</ui:repeat>
+    		</ui:define>
+ 
+    	</ui:composition>
+ 
+    </h:body>
+ 
+</html>

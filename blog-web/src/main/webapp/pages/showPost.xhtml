@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+
+	<ui:composition template="../templates/common/layout.xhtml">
+
+		<ui:define name="content">
+			<script type="text/javascript">
+				//<![CDATA[
+					$(document).ready(function() {
+						convertDateToUserTimezone("insertDate");
+			        });
+				//]]>
+				</script>
+				
+				<h:messages styleClass="messages-panel" infoClass="info-messages"
+				errorClass="error-messages" />
+
+			<h:panelGroup rendered="#{not empty showPost.post}" layout="block">
+				<h3>
+					<h:outputText value="#{showPost.post.title}" />
+				</h3>
+				<div>
+					#{msgs['home.posted.on.label']}
+					<h:outputText value="#{showPost.post.insertDate}" id="insertDate">
+						<f:convertDateTime dateStyle="long" type="both" timeStyle="full"/>
+					</h:outputText>&nbsp;
+					<h:outputFormat value="#{msgs['home.posted.by.label']}"
+						rendered="#{not empty showPost.post.author}">
+						<f:param value="#{showPost.post.author}" />
+					</h:outputFormat>
+				</div>
+				<div>
+					<h:outputLabel value="#{showPost.post.text}" />
+				</div>
+
+				<fieldset>
+					<legend>#{msgs['post.comments.label']}</legend>
+
+					<ui:repeat value="#{showPost.post.comments}" var="item">
+						<div>
+							<div>
+								<h:outputLabel value="#{item.text}" />
+							</div>
+							<div>
+								#{msgs['post.added.on.label']}
+								<h:outputText value="#{item.insertDate}" id="insertDate">
+									<f:convertDateTime dateStyle="long" type="both" timeStyle="full"/>
+								</h:outputText>&nbsp;
+								<h:outputFormat value="#{msgs['post.added.by.label']}"
+									rendered="#{not empty item.author}">
+									<f:param value="#{item.author}" />
+								</h:outputFormat>
+							</div>
+						</div>
+						<hr />
+					</ui:repeat>
+				</fieldset>
+				<hr />
+				<fieldset>
+					<legend>#{msgs['post.comments.add.label']}</legend>
+
+					<h:form>
+						<div>
+							<h:outputLabel value="#{msgs['post.comments.add.author.label']}:"
+								for="author" styleClass="input" />
+							<h:inputText id="author" value="#{showPost.commentAuthor}"
+								required="false"
+								label="#{msgs['post.comments.add.author.label']}"
+								style="width: 300px;" />
+						</div>
+						<div>
+							<h:outputLabel value="#{msgs['post.comments.add.text.label']}:"
+								for="text" styleClass="input" />
+							<h:inputTextarea id="text" value="#{showPost.commentText}"
+								required="true" label="#{msgs['post.comments.add.text.label']}"
+								rows="10" cols="50" />
+						</div>
+						<h:commandButton value="#{msgs['application.buttons.submit']}"
+							action="#{showPost.addComment}" style="text-align: center;">
+							<f:param name="postId" value="#{showPost.post.id}" />
+						</h:commandButton>
+					</h:form>
+				</fieldset>
+			</h:panelGroup>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>
