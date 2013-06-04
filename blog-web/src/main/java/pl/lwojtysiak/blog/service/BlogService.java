@@ -58,13 +58,11 @@ public class BlogService {
 
 		post = postDAO.getById(postId);
 
-		System.out.println("post: " + post);
 		if (post != null) {
 			// get full content
 			post.setText(postDAO.getPostContent(postId));
 			// get comments
 			List<Comment> comments = commentDAO.getByPostId(postId);
-			System.out.println("comments: " + comments.size());
 			post.setComments(comments);
 		}
 
