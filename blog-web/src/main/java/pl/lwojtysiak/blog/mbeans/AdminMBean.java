@@ -10,15 +10,29 @@ import javax.faces.context.FacesContext;
 import pl.lwojtysiak.blog.model.Post;
 import pl.lwojtysiak.blog.service.BlogService;
 
+/**
+ * Bean for admin webpage.
+ * 
+ * @author lwojtysiak
+ * 
+ */
 @ManagedBean(name = "admin")
 @SessionScoped
 public class AdminMBean {
 
+	/* Fields for form editing. */
+	/** Post author. */
 	private String author;
+	/** Post title. */
 	private String title;
+	/** Post summary. */
 	private String summary;
+	/** Post text. */
 	private String text;
 
+	/**
+	 * Method add post to application with data from webpage form.
+	 */
 	public void addPost() {
 		Post post = new Post(author, title, new Date(), summary, text);
 
@@ -37,6 +51,9 @@ public class AdminMBean {
 		}
 	}
 
+	/**
+	 * Clear form fields after successfully adding post.
+	 */
 	private void clearFields() {
 		author = "";
 		title = "";

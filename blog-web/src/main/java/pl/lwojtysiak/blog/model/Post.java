@@ -6,27 +6,53 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Post implements Serializable {
-	
+
 	/**
 	 * Generated serialVersionUID.
 	 */
 	private static final long serialVersionUID = -3516137957812365381L;
-	
+
+	/** Database identifier. */
 	private long id;
+	/** Post author. */
 	private String author;
+	/** Post title. */
 	private String title;
+	/** Post insert date. */
 	private Date insertDate;
+	/** Post summary - showed on home page. */
 	private String summary;
+	/** Post full text. */
 	private String text;
+	/** Number of comments to post. */
 	private int numberOfComments;
-	
+
+	/** List of comments. */
 	private List<Comment> comments = new LinkedList<Comment>();
-	
+
+	/**
+	 * Constructor.
+	 */
 	public Post() {
-		
+
 	}
-	
-	public Post(String author, String title, Date insertDate, String summary, String text) {
+
+	/**
+	 * Constructor with params.
+	 * 
+	 * @param author
+	 *            post author
+	 * @param title
+	 *            post title
+	 * @param insertDate
+	 *            post date
+	 * @param summary
+	 *            psot summary
+	 * @param text
+	 *            post text
+	 */
+	public Post(String author, String title, Date insertDate, String summary,
+			String text) {
 		this.author = author;
 		this.title = title;
 		this.insertDate = insertDate;
@@ -34,12 +60,20 @@ public class Post implements Serializable {
 		this.text = text;
 	}
 
+	/**
+	 * Methods adds comment to post.
+	 * 
+	 * @param author
+	 *            comment author
+	 * @param text
+	 *            comment text
+	 */
 	public void addComment(String author, String text) {
 		Comment c = new Comment(author, new Date(), text);
 		comments.add(c);
 	}
-	
-	//getters_setters
+
+	// getters_setters
 	/**
 	 * @return the author
 	 */
@@ -48,7 +82,8 @@ public class Post implements Serializable {
 	}
 
 	/**
-	 * @param author the author to set
+	 * @param author
+	 *            the author to set
 	 */
 	public void setAuthor(String author) {
 		this.author = author;
@@ -62,7 +97,8 @@ public class Post implements Serializable {
 	}
 
 	/**
-	 * @param title the title to set
+	 * @param title
+	 *            the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -76,7 +112,8 @@ public class Post implements Serializable {
 	}
 
 	/**
-	 * @param insertDate the insertDate to set
+	 * @param insertDate
+	 *            the insertDate to set
 	 */
 	public void setInsertDate(Date insertDate) {
 		this.insertDate = insertDate;
@@ -90,7 +127,8 @@ public class Post implements Serializable {
 	}
 
 	/**
-	 * @param summary the summary to set
+	 * @param summary
+	 *            the summary to set
 	 */
 	public void setSummary(String summary) {
 		this.summary = summary;
@@ -104,12 +142,13 @@ public class Post implements Serializable {
 	}
 
 	/**
-	 * @param text the text to set
+	 * @param text
+	 *            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;
 	}
-	
+
 	/**
 	 * @return the id
 	 */
@@ -118,7 +157,8 @@ public class Post implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -132,7 +172,8 @@ public class Post implements Serializable {
 	}
 
 	/**
-	 * @param numberOfComments the numberOfComments to set
+	 * @param numberOfComments
+	 *            the numberOfComments to set
 	 */
 	public void setNumberOfComments(int numberOfComments) {
 		this.numberOfComments = numberOfComments;
@@ -146,7 +187,8 @@ public class Post implements Serializable {
 	}
 
 	/**
-	 * @param comments the comments to set
+	 * @param comments
+	 *            the comments to set
 	 */
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;

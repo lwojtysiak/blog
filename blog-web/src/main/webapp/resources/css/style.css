@@ -38,11 +38,6 @@ h3 {
     display: none;
 }
 
-.message-type-icon {
-	float: left; 
-	margin: 0 10px 0 0;
-}
-
 input,select,textarea {
 	padding: 5px;
 	margin: 5px 0 5px 0;
@@ -58,11 +53,6 @@ input[type=submit] {
 	width: 100px;
 	float: left;
 	margin: 5px 0 5px 0;
-}
-
-.archive-label {
-	float: left; 
-	width: 70px;
 }
 
 fieldset {

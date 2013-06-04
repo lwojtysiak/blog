@@ -17,7 +17,9 @@ import pl.lwojtysiak.blog.model.Post;
  */
 public class BlogService {
 
+	/** Object DAO for posts. */
 	private PostDAO postDAO = null;
+	/** Object DAO for comments. */
 	private CommentDAO commentDAO = null;
 
 	/** BlogService object - to provide Singleton. */

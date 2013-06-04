@@ -13,6 +13,12 @@ import pl.lwojtysiak.blog.model.Comment;
 import pl.lwojtysiak.blog.model.Post;
 import pl.lwojtysiak.blog.service.BlogService;
 
+/**
+ * Bean for show post webpage.
+ * 
+ * @author lwojtysiak
+ * 
+ */
 @ManagedBean(name = "showPost")
 @ViewScoped
 public class ShowPostMBean implements Serializable {
@@ -21,11 +27,18 @@ public class ShowPostMBean implements Serializable {
 	 * Generated serialVersionUID
 	 */
 	private static final long serialVersionUID = 5605523793582336427L;
-	
+
+	/** Post showed on webpage. */
 	private Post post;
+	// Fields for form editing. //
+	/** Comment author. */
 	private String commentAuthor;
+	/** Comment text. */
 	private String commentText;
 
+	/**
+	 * Method add comment to post in application with data from webpage form.
+	 */
 	public void addComment() {
 		Comment comment = new Comment(commentAuthor, new Date(), commentText,
 				post.getId());
@@ -46,6 +59,12 @@ public class ShowPostMBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Method return full post with comments - with passed as request param post
+	 * id.
+	 * 
+	 * @return Post object or null if not found
+	 */
 	public Post getPost() {
 		Map<String, String> params = FacesContext.getCurrentInstance()
 				.getExternalContext().getRequestParameterMap();
@@ -73,6 +92,9 @@ public class ShowPostMBean implements Serializable {
 		return post;
 	}
 
+	/**
+	 * Clear form fields after successfully adding comment.
+	 */
 	private void clearFields() {
 		commentAuthor = "";
 		commentText = "";

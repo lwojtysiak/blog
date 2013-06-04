@@ -8,23 +8,53 @@ public class Comment implements Serializable {
 	 * Generated serialVersionUID.
 	 */
 	private static final long serialVersionUID = -8432499878715230131L;
-	
+
+	/** Database identifier. */
 	private long id;
+	/** Comment author. */
 	private String author;
+	/** Comment insert date. */
 	private Date insertDate;
+	/** Comment text. */
 	private String text;
+	/** Database identifier of post. */
 	private Long postId;
-	
+
+	/**
+	 * Constructor.
+	 */
 	public Comment() {
-		
+
 	}
-	
+
+	/**
+	 * Constructor with params.
+	 * 
+	 * @param author
+	 *            commnent author
+	 * @param insertDate
+	 *            comment date
+	 * @param text
+	 *            comment text
+	 */
 	public Comment(String author, Date insertDate, String text) {
 		this.author = author;
 		this.insertDate = insertDate;
 		this.text = text;
 	}
-	
+
+	/**
+	 * Constructor with params.
+	 * 
+	 * @param author
+	 *            commnent author
+	 * @param insertDate
+	 *            comment date
+	 * @param text
+	 *            comment text
+	 * @param postId
+	 *            post identifier
+	 */
 	public Comment(String author, Date insertDate, String text, long postId) {
 		this.author = author;
 		this.insertDate = insertDate;
@@ -41,7 +71,8 @@ public class Comment implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -55,7 +86,8 @@ public class Comment implements Serializable {
 	}
 
 	/**
-	 * @param author the author to set
+	 * @param author
+	 *            the author to set
 	 */
 	public void setAuthor(String author) {
 		this.author = author;
@@ -69,7 +101,8 @@ public class Comment implements Serializable {
 	}
 
 	/**
-	 * @param insertDate the insertDate to set
+	 * @param insertDate
+	 *            the insertDate to set
 	 */
 	public void setInsertDate(Date insertDate) {
 		this.insertDate = insertDate;
@@ -83,12 +116,13 @@ public class Comment implements Serializable {
 	}
 
 	/**
-	 * @param text the text to set
+	 * @param text
+	 *            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;
 	}
-	
+
 	/**
 	 * @return the postId
 	 */
@@ -97,7 +131,8 @@ public class Comment implements Serializable {
 	}
 
 	/**
-	 * @param postId the postId to set
+	 * @param postId
+	 *            the postId to set
 	 */
 	public void setPostId(long postId) {
 		this.postId = postId;
