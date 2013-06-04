@@ -60,6 +60,9 @@ public class CommentDAOImplTest {
 		}
 	}
 
+	/**
+	 * Test if returns all comments for specified post from DB.
+	 */
 	@Test
 	public void testGetByPostId() {
 		Post post = new Post(AUTHOR, TITLE, new Date(), "summary", "full content");
@@ -84,6 +87,9 @@ public class CommentDAOImplTest {
 		assertEquals(MESSAGE, comments.get(0).getText());
 	}
 	
+	/**
+	 * Test if returns correct number of comments for specified post.
+	 */
 	@Test
 	public void testGetNumberOfCommentsByPostId() {
 		Post post = new Post(AUTHOR, TITLE, new Date(), "summary", "full content");
@@ -104,6 +110,9 @@ public class CommentDAOImplTest {
 		assertEquals(2, comments);
 	}
 	
+	/**
+	 * Test if properly save comment to DB.
+	 */
 	@Test
 	public void testSave() {
 		Post post = new Post(AUTHOR, TITLE, new Date(), "summary", "full content");
@@ -118,7 +127,6 @@ public class CommentDAOImplTest {
 		assertEquals(1, comments.size());
 		assertEquals(AUTHOR, comments.get(0).getAuthor());
 		assertEquals(MESSAGE, comments.get(0).getText());
-		
 	}
 
 }

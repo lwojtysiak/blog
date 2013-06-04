@@ -1,26 +1,35 @@
 package pl.lwojtysiak.blog.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
-import java.io.File;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import pl.lwojtysiak.blog.db.ConnectionFactory;
+import pl.lwojtysiak.blog.dao.CommentDAO;
+import pl.lwojtysiak.blog.dao.PostDAO;
+import pl.lwojtysiak.blog.model.Comment;
 import pl.lwojtysiak.blog.model.Post;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BlogServiceTest {
 
-	/** Path to test db file. */
-	private static String DB_FILE_PATH = "D:/dbfile_test.db";
+	@Mock
+    private PostDAO postDAO;
+    @Mock
+    private CommentDAO commentDAO;
 
 	private static String AUTHOR = "lwojtysiak";
 	private static String TITLE = "Test message";
-	
+	private static String MESSAGE = "Test message";
+
 	/**
 	 * Init tests - set new db file path
 	 * 
@@ -28,22 +37,29 @@ public class BlogServiceTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		ConnectionFactory cf = ConnectionFactory.getInstance();
-		cf.setDbFilePath(DB_FILE_PATH);
-	}
+		BlogService.getInstance().setCommentDAO(commentDAO);
+		BlogService.getInstance().setPostDAO(postDAO);
+		
+		Post post = new Post(AUTHOR, TITLE, new Date(), "summary", "full content");
+		post.setId(1L);
+		Post post2 = new Post(AUTHOR, TITLE, new Date(), "summary2", "full content2");
+		post2.setId(2L);
+		
+		List<Comment> comments = new LinkedList<Comment>();
+		Comment comment = new Comment(AUTHOR, new Date(), MESSAGE);
+		comment.setPostId(1L);
+		comments.add(comment);
+		
+		List<Post> allPosts = new LinkedList<Post>();
+		allPosts.add(post2);
+		allPosts.add(post);
 
-	/**
-	 * End tests - delete db file for test
-	 * 
-	 * @throws Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		File f = new File(DB_FILE_PATH);
-
-		if (f.exists()) {
-			f.delete();
-		}
+		when(postDAO.getById(1L)).thenReturn(post);
+		when(postDAO.findAll()).thenReturn(allPosts);
+		when(postDAO.getPostContent(1L)).thenReturn("full content");
+		when(commentDAO.getNumberOfCommentsByPostId(1L)).thenReturn(1);
+		when(commentDAO.getNumberOfCommentsByPostId(2L)).thenReturn(0);
+		when(commentDAO.getByPostId(1L)).thenReturn(comments);
 	}
 
 	/**
@@ -57,24 +73,39 @@ public class BlogServiceTest {
 		assertEquals(blogService1, blogService2);
 	}
 
+	/**
+	 * Test if returns all posts from DB.
+	 */
+	@Test
 	public void testFindAll() {
 		List<Post> allPosts = BlogService.getInstance().getAllPosts();
 
-		assertEquals(0, allPosts.size());
-
-		Post post = new Post(AUTHOR, TITLE, new Date(), "summary",
-				"full content");
-		BlogService.getInstance().addPost(post);
-
-		allPosts = BlogService.getInstance().getAllPosts();
-
-		assertEquals(1, allPosts.size());
-		assertEquals(1L, allPosts.get(0).getId());
-
-		BlogService.getInstance().addPost(post);
-		allPosts = BlogService.getInstance().getAllPosts();
-
+		// verify list contains all added posts
 		assertEquals(2, allPosts.size());
+
+		// verify properly get number of comments
+		assertEquals(1, allPosts.get(1).getNumberOfComments());
+		assertEquals(0, allPosts.get(0).getNumberOfComments());
+	}
+
+	/**
+	 * Test if returns full post with comments from DB.
+	 */
+	@Test
+	public void testGetFullPostWithComments() {
+		Post fullPost = BlogService.getInstance().getFullPostWithComments(1L);
+
+		assertEquals(1, fullPost.getId());
+		assertEquals(AUTHOR, fullPost.getAuthor());
+		assertEquals(TITLE, fullPost.getTitle());
+		assertEquals("summary", fullPost.getSummary());
+		assertEquals("full content", fullPost.getText());
+
+		assertEquals(1, fullPost.getComments().size());
+		Comment c = fullPost.getComments().get(0);
+
+		assertEquals(AUTHOR, c.getAuthor());
+		assertEquals(MESSAGE, c.getText());
 	}
 
 }

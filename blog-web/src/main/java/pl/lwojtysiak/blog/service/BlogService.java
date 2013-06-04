@@ -55,6 +55,8 @@ public class BlogService {
 		Post post = null;
 
 		post = postDAO.getById(postId);
+
+		System.out.println("post: " + post);
 		if (post != null) {
 			// get full content
 			post.setText(postDAO.getPostContent(postId));
@@ -96,7 +98,7 @@ public class BlogService {
 	public boolean addComment(Comment comment) {
 		return commentDAO.save(comment);
 	}
-	
+
 	/**
 	 * Method adds post to blog system.
 	 * 
@@ -106,6 +108,37 @@ public class BlogService {
 	 */
 	public boolean addPost(Post post) {
 		return postDAO.save(post);
+	}
+
+	// getters_setters
+	/**
+	 * @return the postDAO
+	 */
+	public PostDAO getPostDAO() {
+		return postDAO;
+	}
+
+	/**
+	 * @param postDAO
+	 *            the postDAO to set
+	 */
+	public void setPostDAO(PostDAO postDAO) {
+		this.postDAO = postDAO;
+	}
+
+	/**
+	 * @return the commentDAO
+	 */
+	public CommentDAO getCommentDAO() {
+		return commentDAO;
+	}
+
+	/**
+	 * @param commentDAO
+	 *            the commentDAO to set
+	 */
+	public void setCommentDAO(CommentDAO commentDAO) {
+		this.commentDAO = commentDAO;
 	}
 
 }
