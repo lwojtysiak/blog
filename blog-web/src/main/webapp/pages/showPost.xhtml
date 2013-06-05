@@ -23,32 +23,36 @@
 				errorClass="error-messages" />
 
 			<h:panelGroup rendered="#{not empty showPost.post}" layout="block">
-				<h3>
-					<h:outputText value="#{showPost.post.title}" />
-				</h3>
-				<div>
-					#{msgs['home.posted.on.label']}
-					<h:outputText value="#{showPost.post.insertDate}" id="insertDate">
-						<f:convertDateTime dateStyle="long" type="both" timeStyle="full"/>
-					</h:outputText>&nbsp;
-					<h:outputFormat value="#{msgs['home.posted.by.label']}"
-						rendered="#{not empty showPost.post.author}">
-						<f:param value="#{showPost.post.author}" />
-					</h:outputFormat>
+				<div class="post-title-div">
+					<span class="post-title">
+						<h:outputText value="#{showPost.post.title}" />
+					</span>
+					<div class="posted-date-author">
+						#{msgs['home.posted.on.label']}
+						<h:outputText value="#{showPost.post.insertDate}" id="insertDate">
+							<f:convertDateTime dateStyle="long" type="both" timeStyle="full"/>
+						</h:outputText>&nbsp;
+						<h:outputFormat value="#{msgs['home.posted.by.label']}"
+							rendered="#{not empty showPost.post.author}">
+							<f:param value="#{showPost.post.author}" />
+						</h:outputFormat>
+					</div>
 				</div>
 				<div>
 					<h:outputLabel value="#{showPost.post.text}" />
 				</div>
 
-				<fieldset>
+				<fieldset style="margin-top: 10px;">
 					<legend>#{msgs['post.comments.label']}</legend>
-
-					<ui:repeat value="#{showPost.post.comments}" var="item">
+					<h:panelGroup rendered="#{empty showPost.post.comments}" style="text-align: center" layout="block">
+						#{msgs['post.comments.empty']}
+					</h:panelGroup>
+					<ui:repeat value="#{showPost.post.comments}" var="item" rendered="#{not empty showPost.post.comments}">
 						<div>
 							<div>
 								<h:outputLabel value="#{item.text}" />
 							</div>
-							<div>
+							<div class="posted-date-author">
 								#{msgs['post.added.on.label']}
 								<h:outputText value="#{item.insertDate}" id="insertDate">
 									<f:convertDateTime dateStyle="long" type="both" timeStyle="full"/>
@@ -66,7 +70,7 @@
 				<fieldset>
 					<legend>#{msgs['post.comments.add.label']}</legend>
 
-					<h:form>
+					<h:form id="add_comment">
 						<div>
 							<h:outputLabel value="#{msgs['post.comments.add.author.label']}:"
 								for="author" styleClass="input" />

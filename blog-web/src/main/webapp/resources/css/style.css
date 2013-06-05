@@ -1,3 +1,18 @@
+#header_container {
+	background-color: lightgray;
+	padding: 20px;
+	text-align: left;
+	border-radius: 5px 5px 5px 5px;
+	font-weight: bold;
+	font-size: 30px;
+	margin-bottom: 10px;
+}
+
+#header_container a {
+	text-decoration: none;
+	color: black;
+}
+
 h3 {
 	background-color: gray;
 	padding: 10px;
@@ -48,7 +63,6 @@ input[type=submit] {
 }
 
 .input {
-	font-weight: bold;
 	vertical-align: top;
 	width: 100px;
 	float: left;
@@ -87,4 +101,46 @@ body {
     padding: 5px 0 0;
     text-align: center;
     width: 100%;
+}
+
+.post-title-div {
+	background-color: gray;
+	padding: 10px;
+	text-align: left;
+	border-radius: 5px 5px 5px 5px;
+	margin-bottom: 10px;
+}
+
+.post-title {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.post-title a {
+	color: black;
+	font-style: italic;
+	text-decoration: none;
+}
+
+.post-title a:hover {
+	color: #aaaaaa;
+	cursor: pointer;
+	font-style: italic;
+	text-decoration: none;
+}
+
+.posted-date-author {
+	margin-top: 10px;
+	font-size: 9px;
+}
+
+.post-comments-count {
+	margin-top: 10px;
+	font-size: 9px;
+	font-style: italic;
+}
+
+.add_post {
+	font-size: 10px;
+	text-align: center;
 }

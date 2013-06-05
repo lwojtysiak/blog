@@ -18,35 +18,41 @@
 			        });
 				//]]>
 				</script>
+				<h:panelGroup rendered="#{empty homePage.posts}" style="text-align: center" layout="block">
+					#{msgs['home.posts.empty']}
+				</h:panelGroup>
 				
-				<ui:repeat value="#{homePage.posts}" var="item">
-					<div>
-				    	<h3>
+				<ui:repeat value="#{homePage.posts}" var="item" rendered="#{not empty homePage.posts}">
+					<div class="post-title-div">
+				    	<span class="post-title">
 				    		<h:outputLink value="pages/showPost.xhtml">
-							<h:outputText value="#{item.title}" />
+								<h:outputText value="#{item.title}" />
 								<f:param name="postId" value="#{item.id}" />
 							</h:outputLink>
-						</h3>
-					</div>
-					
-					<div>
-						#{msgs['home.posted.on.label']}
-						<h:outputText value="#{item.insertDate}" id="insertDate">
-							<f:convertDateTime dateStyle="long" type="both" timeStyle="full"/>
-						</h:outputText>&nbsp;
-						<h:outputFormat value="#{msgs['home.posted.by.label']}" rendered="#{not empty item.author}">
-				    		<f:param value="#{item.author}" />
-				     	</h:outputFormat>
+						</span>
+						<div class="posted-date-author">
+							#{msgs['home.posted.on.label']}
+							<h:outputText value="#{item.insertDate}" id="insertDate">
+								<f:convertDateTime dateStyle="long" type="both" timeStyle="full"/>
+							</h:outputText>&nbsp;
+							<h:outputFormat value="#{msgs['home.posted.by.label']}" rendered="#{not empty item.author}">
+					    		<f:param value="#{item.author}" />
+					     	</h:outputFormat>
+						</div>
 					</div>
 					
 					<div>
 						<h:outputLabel value="#{item.summary}" />
 					</div>
 					
-					<div>
+					<div class="post-comments-count">
 						<h:outputFormat value="#{msgs['home.comments.label']}">
 			    			<f:param value="#{item.numberOfComments}" />
-			     		</h:outputFormat>
+			     		</h:outputFormat> | 
+			     		<h:outputLink value="pages/showPost.xhtml">
+							#{msgs['home.comments.add.label']}
+							<f:param name="postId" value="#{item.id}" />
+						</h:outputLink>
 					</div>
 				    <hr/>
 				</ui:repeat>
